@@ -20,11 +20,24 @@ A new session has no memory of the last one. Summaries written from memory drift
 
 ## Install
 
-Copy (or symlink) the two directories into your agent's skills directory. For Claude Code:
+Clone the repository, then either copy or symlink the two directories into your agent's skills directory. For Claude Code:
 
 ```bash
 git clone https://github.com/blizzardwj/handoff-pickup.git
+mkdir -p ~/.claude/skills
+```
+
+Then either copy them:
+
+```bash
 cp -r handoff-pickup/handoff handoff-pickup/pickup ~/.claude/skills/
+```
+
+or symlink them, so that `git pull` in the clone updates the installed skills:
+
+```bash
+ln -s "$PWD/handoff-pickup/handoff" ~/.claude/skills/handoff
+ln -s "$PWD/handoff-pickup/pickup" ~/.claude/skills/pickup
 ```
 
 For other agents, use the skills directory described in their documentation.
