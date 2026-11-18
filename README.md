@@ -20,26 +20,40 @@ A new session has no memory of the last one. Summaries written from memory drift
 
 ## Install
 
-Clone the repository, then either copy or symlink the two directories into your agent's skills directory. The examples below use Claude Code's skills directory. Run all commands from the parent directory of the clone; if you already cloned the repository, skip `git clone`.
+Clone the repository, then either copy or symlink the two directories into your agent's skills directory. The examples below include Claude Code (`~/.claude/skills`) and Codex (`~/.agents/skills`); use the commands labeled for your agent. Run all commands from the parent directory of the clone; if you already cloned the repository, skip `git clone`.
 
 ### macOS / Linux (Bash)
 
 ```bash
 git clone https://github.com/blizzardwj/handoff-pickup.git
+
+# Claude Code
 mkdir -p ~/.claude/skills
+
+# Codex
+mkdir -p ~/.agents/skills
 ```
 
 Then either copy them:
 
 ```bash
+# Claude Code
 cp -r handoff-pickup/handoff handoff-pickup/pickup ~/.claude/skills/
+
+# Codex
+cp -r handoff-pickup/handoff handoff-pickup/pickup ~/.agents/skills/
 ```
 
 or symlink them, so that `git pull` in the clone updates the installed skills:
 
 ```bash
+# Claude Code
 ln -s "$PWD/handoff-pickup/handoff" ~/.claude/skills/handoff
 ln -s "$PWD/handoff-pickup/pickup" ~/.claude/skills/pickup
+
+# Codex
+ln -s "$PWD/handoff-pickup/handoff" ~/.agents/skills/handoff
+ln -s "$PWD/handoff-pickup/pickup" ~/.agents/skills/pickup
 ```
 
 ### Windows (PowerShell)
@@ -48,21 +62,36 @@ Clone the repository and create the skills directory:
 
 ```powershell
 git clone https://github.com/blizzardwj/handoff-pickup.git
+
+# Claude Code
 New-Item -ItemType Directory -Path "$HOME\.claude\skills" -Force | Out-Null
+
+# Codex
+New-Item -ItemType Directory -Path "$HOME\.agents\skills" -Force | Out-Null
 ```
 
 Then either copy the two directories (separate multiple source paths with a comma in PowerShell):
 
 ```powershell
+# Claude Code
 Copy-Item -Path .\handoff-pickup\handoff, .\handoff-pickup\pickup -Destination "$HOME\.claude\skills" -Recurse
+
+# Codex
+Copy-Item -Path .\handoff-pickup\handoff, .\handoff-pickup\pickup -Destination "$HOME\.agents\skills" -Recurse
 ```
 
 or create symbolic links, so that `git pull` in the clone updates the installed skills. Use this option when the destination `handoff` and `pickup` paths do not already exist:
 
 ```powershell
 $repoPath = (Resolve-Path .\handoff-pickup).Path
+
+# Claude Code
 New-Item -ItemType SymbolicLink -Path "$HOME\.claude\skills\handoff" -Target "$repoPath\handoff"
 New-Item -ItemType SymbolicLink -Path "$HOME\.claude\skills\pickup" -Target "$repoPath\pickup"
+
+# Codex
+New-Item -ItemType SymbolicLink -Path "$HOME\.agents\skills\handoff" -Target "$repoPath\handoff"
+New-Item -ItemType SymbolicLink -Path "$HOME\.agents\skills\pickup" -Target "$repoPath\pickup"
 ```
 
 Creating symbolic links on Windows may require running PowerShell as Administrator. PowerShell 7 with Windows Developer Mode enabled can create them without elevation. Copying does not require this.
